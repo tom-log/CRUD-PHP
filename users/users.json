@@ -49,22 +49,5 @@
         "email": "Chaim_McDermott@dana.io",
         "phone": "(775)976-6794 x41206",
         "website": "conrad.com"
-    },
-    {
-        "id": 10,
-        "name": "Clementina DuBuque",
-        "username": "Moriah.Stanton",
-        "email": "Rey.Padberg@karina.biz",
-        "phone": "024-648-3804",
-        "website": "ambrose.net"
-    },
-    {
-        "name": "John Doe",
-        "username": "john22",
-        "email": "",
-        "phone": "12345",
-        "website": "",
-        "id": 1879571,
-        "extension": "jpg"
     }
 ]

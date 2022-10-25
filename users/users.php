@@ -1,15 +1,12 @@
 <?php
-/**
- * User: TheCodeholic
- * Date: 3/19/2019
- * Time: 9:27 AM
- */
 
+// Função que retorna uma lista de usuários, decodificando o JSON e retornando um array
 function getUsers()
 {
     return json_decode(file_get_contents(__DIR__ . '/users.json'), true);
 }
 
+// Função que retorna um usuário específico, baseado no seu ID
 function getUserById($id)
 {
     $users = getUsers();
@@ -21,6 +18,8 @@ function getUserById($id)
     return null;
 }
 
+
+// Esta é uma função que cria um novo usuário. Ele recebe um array com os dados do usuário e retorna um array com os mesmos dados mais um ID.
 function createUser($data)
 {
     $users = getUsers();
@@ -34,6 +33,7 @@ function createUser($data)
     return $data;
 }
 
+// Esta função atualiza um usuário. Ele recebe um array com os dados a serem atualizados e o id do usuário a ser atualizado. A função retorna um array com os novos dados do usuário.
 function updateUser($data, $id)
 {
     $updateUser = [];
@@ -49,6 +49,7 @@ function updateUser($data, $id)
     return $updateUser;
 }
 
+// Esta função deleta um usuário. Ela recebe o id do usuário a ser deletado e retorna um array com os dados do usuário deletado.
 function deleteUser($id)
 {
     $users = getUsers();
@@ -62,21 +63,18 @@ function deleteUser($id)
     putJson($users);
 }
 
+// Esta função é responsável por subir uma img, recebe dois parâmetros: $file e $user. O primeiro é o arquivo que será carregado e o segundo é um array com informações do usuário.
 function uploadImage($file, $user)
 {
     if (isset($_FILES['picture']) && $_FILES['picture']['name']) {
         if (!is_dir(__DIR__ . "/images")) {
             mkdir(__DIR__ . "/images");
         }
-        // Get the file extension from the filename
-        $fileName = $file['name'];
-        // Search for the dot in the filename
-        $dotPosition = strpos($fileName, '.');
-        // Take the substring from the dot position till the end of the string
-        $extension = substr($fileName, $dotPosition + 1);
+        
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
 
         move_uploaded_file($file['tmp_name'], __DIR__ . "/images/${user['id']}.$extension");
-
+        
         $user['extension'] = $extension;
         updateUser($user, $user['id']);
     }
